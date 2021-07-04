@@ -133,6 +133,12 @@
 
 <script>
 // import $ from 'jquery';
+import rectangle from './../assets/rectangle.png';
+import borderRectangle from './../assets/border-rectangle.png'
+import fillRectangle from './../assets/fill-rectangle.png'
+import whiteBorderRect from './../assets/white-border-rect.png'
+import ellipseBorderless from './../assets/ellipse_borderless.png'
+import ellipseFill from './../assets/ellipse_fill.png'
 
 export default {
     name: 'PaintWrapper',
@@ -145,7 +151,7 @@ export default {
             back_fore_color: null,
             back_fore: null,
             color_change: null,
-            func_buttons: [...document.querySelectorAll("#buttons button")],
+            func_buttons: null,
             color_select: null,
             pressed: null,
             width: 10,
@@ -368,7 +374,7 @@ export default {
         this.cursorEraser = document.getElementById('cursor-eraser');
         this.menu_items = [...document.querySelectorAll('#main-menu > div')];
         this.sub_item_list = [...document.querySelectorAll('ul.menu')];
-        console.log(this.cursorEraser)
+        
         this.back_fore.forEach(b_f=>{
             b_f.addEventListener('click', ()=>{
                 this.back_fore_color=b_f
@@ -639,7 +645,7 @@ export default {
 
                     let rect_borderless=document.createElement('button');
                     rect_borderless.classList.add('inner-div');
-                    rect_borderless.innerHTML="<img src='./../assets/rectangle.png'>";
+                    rect_borderless.innerHTML=`<img src="${rectangle}">`;
                     rect_borderless.firstElementChild.style.width='34px';
                     rect_borderless.style.width='44px';
                     rect_borderless.firstElementChild.style.height='20px';
@@ -648,7 +654,7 @@ export default {
 
                     let rect_border=document.createElement('button');
                     rect_border.classList.add('inner-div');
-                    rect_border.innerHTML="<img src='./../assets/border-rectangle.png'>";
+                    rect_border.innerHTML=`<img src='${borderRectangle}'>`;
                     rect_border.style.position='absolute';
                     rect_border.style.top='30px';
                     rect_border.style.left='2px';
@@ -659,7 +665,7 @@ export default {
 
                     let rect_fill=document.createElement('button');
                     rect_fill.classList.add('inner-div');
-                    rect_fill.innerHTML="<img src='./../assets/fill-rectangle.png'>";
+                    rect_fill.innerHTML=`<img src='${fillRectangle}'>`;
                     rect_fill.style.position='absolute';
                     rect_fill.style.top='57px';
                     rect_fill.style.left='2px';
@@ -680,11 +686,11 @@ export default {
                         this.isFill=false;
                     });
 
-                    this.button_list.forEach(button=>{
+                    button_list.forEach(button=>{
                         button.addEventListener('click', ()=>{
 
                             button_list.map(button=>button.removeAttribute('id'));
-                            button_list[0].innerHTML="<img src='./../assets/rectangle.png'>";
+                            button_list[0].innerHTML=`<img src='${rectangle}'>`;
                             button_list[0].firstElementChild.style.width='38px';
                             button_list[0].firstElementChild.style.height='20px';
                             button['id']='btn-active';
@@ -696,7 +702,7 @@ export default {
                             this.canvas.addEventListener('mouseout', ()=>this.isRect=false);
 
                             if(button===button_list[0]){
-                                button.innerHTML="<img src='./../assets/white-border-rect.png'>";
+                                button.innerHTML=`<img src='${whiteBorderRect}'>`;
                                 button.firstElementChild.style.width='38px';
                                 button.firstElementChild.style.height='20px';
                                 this.canvas.removeEventListener('mouseup', this.draw_border_fill_rect, true);
@@ -728,7 +734,7 @@ export default {
 
                     let ellipse_borderless=document.createElement('button');
                     ellipse_borderless.classList.add('inner-div');
-                    ellipse_borderless.innerHTML="<img src='./../assets/ellipse_borderless.png'>";
+                    ellipse_borderless.innerHTML=`<img src='${ellipseBorderless}'>`;
                     ellipse_borderless.firstElementChild.style.width='34px';
                     ellipse_borderless.style.width='44px';
                     ellipse_borderless.firstElementChild.style.height='17px';
@@ -737,7 +743,7 @@ export default {
 
                     let ellipse_border=document.createElement('button');
                     ellipse_border.classList.add('inner-div');
-                    ellipse_border.innerHTML='<img src="./../assets/ellipse_borderless.png">';
+                    ellipse_border.innerHTML=`<img src="${ellipseBorderless}">`;
                     ellipse_border.style.position='absolute';
                     ellipse_border.style.top='30px';
                     ellipse_border.style.left='2px';
@@ -748,7 +754,7 @@ export default {
 
                     let ellipse_fill=document.createElement('button');
                     ellipse_fill.classList.add('inner-div');
-                    ellipse_fill.innerHTML="<img src='./../assets/ellipse_fill.png'>";
+                    ellipse_fill.innerHTML=`<img src='${ellipseFill}'>`;
                     ellipse_fill.style.position='absolute';
                     ellipse_fill.style.top='57px';
                     ellipse_fill.style.left='2px';
@@ -1018,6 +1024,11 @@ ul.menu a{
     flex-wrap: wrap;
 }
 
+.color{
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
 #bottom{
     position: relative;
     top: 0;
@@ -1041,8 +1052,8 @@ ul.menu a{
     position: relative;
     height: 18px;
     width: 18px;
-    left: 12px;
-    bottom: 7px;
+    left: -3px;
+    bottom: -10px;
     border: 1px solid #e3e6e7;
 }
 
